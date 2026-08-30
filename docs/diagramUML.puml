@@ -1,0 +1,113 @@
+@startuml
+
+' ========== TITULO ==========
+title
+<size:30><b><color:#a100ff>>ACCENTURE</color> <color:#64748B>|</color> <color:#1E40AF>🏛️ Franchises Api</color></b></size>
+<size:10>━━━━━━━━━━━━━━━━━━━━━━━━━━</size>
+<size: 11><color:#10B981>Sistema de gestión v1.0</color></size>
+<size:10><color:#6B7280>Java · Spring Boot</color></size>
+end title
+
+
+' ========== DESCRIPCIÓN Y ESTRUCTURA DE CARPETAS ==========
+legend bottom right
+  <b><color:#1E40AF>📋 Descripción del Proyecto</color></b>
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  API reactiva de alta concurrencia para la
+  gestión integral de franquicias, sucursales y
+  control de inventario en tiempo real
+
+  <b>Funcionalidades:</b>
+  <color:#10B981>✓</color> Creación de Franquicia
+  <color:#10B981>✓</color> Actualización de Franquicia
+  <color:#10B981>✓</color> Creación de Sucursal
+  <color:#10B981>✓</color> Actualización de Sucursal
+  <color:#10B981>✓</color> Eliminación de Producto
+  <color:#10B981>✓</color> Modificación de Stock
+  <color:#10B981>✓</color> Actualización de Producto
+  <color:#10B981>✓</color> Consulta de Producto con Mayor Stock
+
+  <b>Patrones aplicados:</b> Arquitectura hexagonal,
+  programación reactiva, inyección por configuración
+  <b>Manejo de: </b> Global Exception Handler,
+  DTOs & Mappers
+
+  <b><size:12><color:#1E40AF>📁 Estructura de Paquetes (Arquitectura Hexagonal)</color></size></b>
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<font:monospace><size:9>
+<color:#0EA5E9><b>com.accenture.franchise/</b></color>
+<color:#64748B>│</color>
+<color:#64748B>├──</color> ☕ FranchiseApiApplication.java
+<color:#64748B>│</color>
+<color:#64748B>├──</color> 📁 <color:#10B981><b>application/config/</b></color>
+<color:#64748B>│   ├──</color> BeanConfiguration.java
+<color:#64748B>│   └──</color> OpenApiConfig.java
+<color:#64748B>│</color>
+<color:#64748B>├──</color> 📁 <color:#10B981><b>domain/</b></color>
+<color:#64748B>│   ├──</color> 📁 <color:#0284C7><b>model/</b></color> (Franchise, Branch, Product, ProductStockMax)
+<color:#64748B>│   │   ├──</color> 📁 <color:#F59E0B>vob/</color> (NameVo)
+<color:#64748B>│   │   └──</color> 📁 <color:#EF4444>exception/</color> (BusinessException, ResourceNotFoundException)
+<color:#64748B>│   ├──</color> 📁 <color:#0284C7><b>gateway/</b></color> (Repository Ports)
+<color:#64748B>│   └──</color> 📁 <color:#0284C7><b>usecase/</b></color> (Domain UseCases)
+<color:#64748B>│</color>
+<color:#64748B>└──</color> 📁 <color:#10B981><b>infrastructure/</b></color>
+    <color:#64748B>├──</color> 📁 <color:#0284C7><b>adapter/postgres/</b></color> (Entities, R2DBC Repositories, Adapters, Mappers)
+    <color:#64748B>├──</color> 📁 <color:#0284C7><b>entrypoints/rest/</b></color> (Controllers, DTOs, Handlers, Mappers)
+    <color:#64748B>└──</color> 📁 <color:#0284C7><b>utils/</b></color> (Constants, DateUtils)
+</size></font>
+end legend
+
+' ========== DOMINIO ==========
+package "model" {
+    class Franchise {
+        - id: Long
+        - name: NameVo
+        - branches: List<Branch>
+        - createdAt: LocalDateTime
+        - updatedAt: LocalDateTime
+    }
+
+    class Branch {
+        - id: Long
+        - franchiseId: Long
+        - name: NameVo
+        - products: List<Product>
+        - createdAt: LocalDateTime
+        - updatedAt: LocalDateTime
+    }
+
+    class Product {
+        - id: Long
+        - branchId: Long
+        - name: NameVo
+        - stock: Integer
+        - createdAt: LocalDateTime
+        - updatedAt: LocalDateTime
+    }
+
+}
+
+' Cambiar la dirección a vertical
+top to bottom direction
+skinparam linetype ortho
+
+
+' ========== RELACIONES DE DOMINIO ==========
+Franchise "1" *-- "N" Branch
+Branch "1" *-- "N" Product
+
+
+' ========== CONFIGURACIÓN VISUAL ==========
+left to right direction
+skinparam classAttributeIconSize 0
+skinparam classFontColor DarkBlue
+skinparam classBackgroundColor #F0F8FF
+skinparam shadowing true
+skinparam nodesep 70
+skinparam ranksep 100
+skinparam packageStyle folder
+skinparam roundcorner 8
+skinparam linetype ortho
+
+
+@enduml
