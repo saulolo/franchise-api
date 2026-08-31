@@ -1,0 +1,62 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# IDE files
+.idea
+.vscode
+*.iml
+*.ipr
+*.iws
+
+# Build outputs
+build
+target
+out
+bin
+
+# Gradle files (keep gradle wrapper)
+.gradle
+!gradle/wrapper
+
+# Environment and local config
+.env
+*.env.local
+*.env.*.local
+.env.example
+
+# Documentation
+*.md
+docs/
+
+# CI/CD
+azure-pipelines.yml
+.github
+
+# Database
+database
+
+# Tools
+converter_tools
+
+# Logs
+logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test files
+*.test
+*.spec
+
+# Temporary files
+tmp
+temp
+*.tmp
+*.bak
+*.swp
+*~
+
