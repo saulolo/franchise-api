@@ -19,23 +19,23 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table("products")
+@Table("branches")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProductEntity {
+public class BranchEntity {
 
     @Id
-    private Long id;
+    Long id;
 
-    @Column("branch_id")
-    private Long branchId;
+    @Column("franchise_id")
+    Long franchiseId;
 
     @Size(min = 3, max = 30)
-    private String name;
-    private Integer stock;
+    String name;
 
     @Column("created_at")
-    private LocalDateTime createdAt;
+    LocalDateTime createdAt;
 
     @Column("updated_at")
-    private LocalDateTime updatedAt;
+    LocalDateTime updatedAt;
+
 }

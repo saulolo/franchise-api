@@ -13,6 +13,7 @@ public class Constants {
     public static final String NOT_FOUND_PRODUCT = "El producto no fue encontrado";
     public static final String SUCCESS_MSG = "Operación realizada con éxito.";
     public static final String DATE_FORMAT = "dd/MM/yyyy HH:mm:ss";
-
+    public static final String NOT_FOUND_FRANCHISE = "La franquicia no fue encontrada.";
+    public static final String ERROR_MESSAGE = "Ha ocurrido un error al procesar la solicitud.";
 
 }

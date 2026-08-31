@@ -7,12 +7,12 @@ import com.accenture.franchise.shared.utils.Constants;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public final class DtoMapper {
+public final class ProductMapper {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(Constants.DATE_FORMAT);
 
 
-    private DtoMapper() {}
+    private ProductMapper() {}
 
     private static String formatDate(LocalDateTime date) {
         return date != null ? date.format(DATE_FORMATTER) : null;

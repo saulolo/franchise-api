@@ -1,10 +1,12 @@
 package com.accenture.franchise.infrastructure.adapter.postgres.repository;
 
+import com.accenture.franchise.infrastructure.adapter.postgres.entity.BranchEntity;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface BranchR2dbcRepository extends ReactiveCrudRepository<Object, Long> {
+public interface BranchR2dbcRepository extends ReactiveCrudRepository<BranchEntity, Long> {
 
     /**
      * Verifica mediante una consulta personalizada si existe una sucursal con el identificador dado.
@@ -14,4 +16,12 @@ public interface BranchR2dbcRepository extends ReactiveCrudRepository<Object, Lo
      */
     @Query("SELECT COUNT(1) > 0 FROM branches WHERE id = :id")
     Mono<Boolean> existsBranchById(Long id);
+
+    /**
+     * Busca todas las sucursales pertenecientes a una franquicia.
+     *
+     * @param franchiseId el identificador de la franquicia
+     * @return un Flux con las entidades de sucursal encontradas
+     */
+    Flux<BranchEntity> findByFranchiseId(Long franchiseId);
 }
