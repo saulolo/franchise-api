@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # ==========================================
+  # Base de Datos PostgreSQL
+  # ==========================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: franchise-db
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: franchise_accenture_db
+      POSTGRES_USER: ${SPRING_R2DBC_USERNAME}
+      POSTGRES_PASSWORD: ${SPRING_R2DBC_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./src/main/resources/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - franchise_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d franchise_accenture_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - franchise-network
+
+  # ==========================================
+  # API Spring Boot (WebFlux + R2DBC)
+  # ==========================================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: franchise-app
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "9090:9090"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_R2DBC_URL: r2dbc:postgresql://postgres:5432/franchise_accenture_db
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - franchise-network
+
+volumes:
+  franchise_pgdata:
+    driver: local
+
+networks:
+  franchise-network:
+    driver: bridge
