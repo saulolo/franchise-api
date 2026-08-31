@@ -1,6 +1,5 @@
 package com.accenture.franchise.infrastructure.adapter.postgres.entity;
 
-import com.accenture.franchise.domain.model.branch.Branch;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -14,14 +13,13 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table("products")
+@Table("franchises")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FranchiseEntity {
 

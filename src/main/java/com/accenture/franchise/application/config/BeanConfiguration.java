@@ -4,6 +4,7 @@ import com.accenture.franchise.domain.gateway.BranchRepositoryGateway;
 import com.accenture.franchise.domain.gateway.FranchiseRepositoryGateway;
 import com.accenture.franchise.domain.gateway.ProductRepositoryGateway;
 import com.accenture.franchise.domain.usecase.BranchUseCase;
+import com.accenture.franchise.domain.usecase.FranchiseUseCase;
 import com.accenture.franchise.domain.usecase.ProductUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,5 +24,11 @@ public class BeanConfiguration {
             BranchRepositoryGateway branchRepositoryGateway,
             FranchiseRepositoryGateway franchiseRepositoryGateway) {
         return new BranchUseCase(branchRepositoryGateway, franchiseRepositoryGateway);
+    }
+
+    @Bean
+    public FranchiseUseCase franchiseUseCase(
+            FranchiseRepositoryGateway franchiseRepositoryGateway) {
+        return new FranchiseUseCase(franchiseRepositoryGateway);
     }
 }
